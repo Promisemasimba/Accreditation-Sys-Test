@@ -1,0 +1,6 @@
+# dependencies
+/accreditationsys/node_modules/
+/Attendance Register/node_modules/
+/.pnp
+.pnp.js
+.yarn/install-state.gz

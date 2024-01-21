@@ -1,0 +1,39 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Registrant {
+  id                   Int        @id @default(autoincrement())
+  title                String?
+  surname              String
+  names                String
+  nationalIdOrPassport String?
+  preferredName        String?
+  institution          String?
+  email                String     @unique
+  city                 String?
+  state                String?
+  country              String
+  dietaryNeeds         String?
+  healthAllergies      String?
+  spouseName           String?
+  spouseContact        String?
+  nextOfKinName        String
+  nextOfKinPhone       String
+  nextOfKinEmail       String
+  profileImage         String?
+  delegates            Delegate[]
+}
+
+model Delegate {
+  id           Int        @id @default(autoincrement())
+  name         String
+  email        String
+  registrant   Registrant @relation(fields: [registrantId], references: [id])
+  registrantId Int
+}

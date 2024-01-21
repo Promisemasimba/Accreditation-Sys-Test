@@ -1,0 +1,47 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PDF Editor</title>
+  </head>
+  <body>
+    <h1>PDF Editor</h1>
+    <form id="pdfForm">
+      <label for="inputPath">Input PDF Path:</label>
+      <input type="text" id="inputPath" name="inputPath" required /><br />
+
+      <label for="outputPath">Output PDF Path:</label>
+      <input type="text" id="outputPath" name="outputPath" required /><br />
+
+      <label for="qrCodeData">QR Code Data:</label>
+      <input type="text" id="qrCodeData" name="qrCodeData" required /><br />
+
+      <button type="submit">Replace Text and QR Code</button>
+    </form>
+
+    <script>
+      document
+        .getElementById("pdfForm")
+        .addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const inputPath = document.getElementById("inputPath").value;
+          const outputPath = document.getElementById("outputPath").value;
+          const qrCodeData = document.getElementById("qrCodeData").value;
+
+          const response = await fetch("/api/pdf/replaceTextAndQRCode", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ inputPath, outputPath, qrCodeData }),
+          });
+
+          const result = await response.json();
+          alert(result.message);
+        });
+    </script>
+  </body>
+</html>
